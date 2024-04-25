@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+    }
+
+    form {
+        background-color: #cae3e5;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="number"], select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        border: 1px solid #217992;
+        border-radius: 4px;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #124174;
+    }
+</style>
+</head>
+<body>
+
+<form id="ageCalculator">
+    <h2>Age Calculator</h2>
+    <label for="dob">Date of Birth:</label>
+    <input type="number" id="dobDay" placeholder="Day" min="1" max="31" required>
+    <input type="number" id="dobMonth" placeholder="Month" min="1" max="12" required>
+    <input type="number" id="dobYear" placeholder="Year" min="1900" max="2100" required>
+    <input type="submit" value="Calculate Age">
+</form>
+
+<script>
+    document.getElementById("ageCalculator").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        var dobDay = parseInt(document.getElementById("dobDay").value);
+        var dobMonth = parseInt(document.getElementById("dobMonth").value) - 1; // Months are zero-based in JavaScript
+        var dobYear = parseInt(document.getElementById("dobYear").value);
+
+        var today = new Date();
+        var birthDate = new Date(dobYear, dobMonth, dobDay);
+
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var monthDiff = today.getMonth() - birthDate.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDay)) {
+            age--;
+        }
+
+        alert("You are " + age + " years old.");
+    });
+</script>
+
+</body>
+</html>
